@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamer Hub | Steam Style</title>
+    <style>
+        :root {
+            --steam-dark: #171a21;
+            --steam-blue: #1b2838;
+            --steam-light-blue: #66c0f4;
+            --steam-grey: #c7d5e0;
+            --steam-nav: #2a475e;
+        }
+
+        body {
+            font-family: 'Motiva Sans', Sans-serif;
+            background-color: var(--steam-blue);
+            color: var(--steam-grey);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Naviqasiya Menyusu */
+        nav {
+            background-color: var(--steam-dark);
+            padding: 15px 50px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            letter-spacing: 2px;
+            margin-right: 30px;
+        }
+
+        nav a {
+            color: var(--steam-grey);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 500;
+            padding-bottom: 5px;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+            border-bottom: 3px solid var(--steam-light-blue);
+        }
+
+        /* Səhifə Bölmələri (Gizli/Açıq) */
+        .page-content {
+            display: none;
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, #1b2838 0%, #0e141b 100%);
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        /* Mağaza Görünüşü */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .store-item {
+            background: #16202d;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .store-item:hover { transform: scale(1.02); }
+        .store-img { width: 100%; height: 150px; background: #2a475e; }
+        .store-info { padding: 15px; }
+
+        /* Kitabxana Görünüşü */
+        .library-layout {
+            display: flex;
+            height: 100%;
+        }
+
+        .lib-sidebar {
+            width: 250px;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-right: 1px solid #333;
+        }
+
+        .play-section {
+            flex: 1;
+            padding-left: 40px;
+        }
+
+        .btn-play {
+            background: linear-gradient(to bottom, #a4d007 5%, #536904 95%);
+            color: white;
+            padding: 15px 80px;
+            border: none;
+            border-radius: 4px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        h2 { color: white; margin-top: 0; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">GAMER HUB</div>
+    <a onclick="showPage('store')" id="nav-store" class="active">STORE</a>
+    <a onclick="showPage('library')" id="nav-library">LIBRARY</a>
+    <a onclick="showPage('profile')" id="nav-profile">PROFILE</a>
+</nav>
+
+<!-- STORE PAGE -->
+<div id="store" class="page-content active">
+    <h2>Mağaza (Trending)</h2>
+    <div class="store-grid">
+        <div class="store-item">
+            <div class="store-img"></div>
+            <div class="store-info">
+                <strong>Sənin Yeni Oyunun</strong><br>
+                <span style="color: #66c0f4;">Pulsuz</span>
+            </div>
+        </div>
+        <div class="store-item" style="opacity: 0.5;">
+            <div class="store-img"></div>
+            <div class="store-info">Tezliklə...</div>
+        </div>
+    </div>
+</div>
+
+<!-- LIBRARY PAGE -->
+<div id="library" class="page-content">
+    <div class="library-layout">
+        <div class="lib-sidebar">
+            <h4 style="color: #56707f;">OYUNLARIM</h4>
+            <div style="color: white; padding: 5px 0;">Sənin Oyunun (Hazırda)</div>
+        </div>
+        <div class="play-section">
+            <h1 style="color: white; font-size: 48px;">Sənin Oyunun</h1>
+            <p>Oynama müddəti: 0 dəqiqə</p>
+            <button class="btn-play">PLAY</button>
+        </div>
+    </div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div id="profile" class="page-content">
+    <h2>Profilim</h2>
+    <div style="background: #171a21; padding: 20px; border-radius: 8px; display: inline-block;">
+        <div style="width: 100px; height: 100px; background: #66c0f4; border-radius: 5px; margin-bottom: 10px;"></div>
+        <strong>İstifadəçi: Developer</strong>
+        <p style="font-size: 12px; color: #4c6b22;">Online</p>
+    </div>
+</div>
+
+<script>
+    function showPage(pageId) {
+        // Bütün səhifələri gizlət
+        const pages = document.querySelectorAll('.page-content');
+        pages.forEach(page => page.classList.remove('active'));
+
+        // Seçilən səhifəni göstər
+        document.getElementById(pageId).classList.add('active');
+
+        // Menyudakı aktiv rəngi dəyiş
+        const navs = document.querySelectorAll('nav a');
+        navs.forEach(nav => nav.classList.remove('active'));
+        document.getElementById('nav-' + pageId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
